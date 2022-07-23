@@ -475,7 +475,7 @@ itemList['1593441988'] = {
 itemList['-771403250'] = {
   fullyDegrades: false,
   decayrate: 2.0,
-  displayname: 'Entreprise Wide Body 1911a',
+  displayname: 'Heavy Pistol',
   price: 250,
   craft: [[
     { itemid: 'steel', amount: 65 },
@@ -655,7 +655,7 @@ itemList['736523883'] = {
 itemList['1192676223'] = {
   fullyDegrades: false,
   decayrate: 0.75,
-  displayname: 'M4',
+  displayname: 'PD M4',
   price: 12,
   craft: [[
     { itemid: 'aluminium', amount: 50 },
@@ -673,7 +673,7 @@ itemList['1192676223'] = {
 itemList['-1768145561'] = {
   fullyDegrades: false,
   decayrate: 0.75,
-  displayname: 'FN SCAR-L',
+  displayname: 'PD SCAR-L',
   price: 12,
   craft: [[
     { itemid: 'aluminium', amount: 50 },
@@ -692,7 +692,7 @@ itemList['-1768145561'] = {
 itemList['-1719357158'] = {
   fullyDegrades: false,
   decayrate: 1.0,
-  displayname: 'Mk14',
+  displayname: 'PD MK14',
   price: 630,
   craft: [
     [
