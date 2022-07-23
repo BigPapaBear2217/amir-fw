@@ -368,7 +368,7 @@ Entries[#Entries + 1] = {
             id = "vinscratch_car",
             label = "Scratch Vin",
             icon = "eye-slash",
-            event = "np-boosting:client:ScratchVehicle",
+            event = "ethicalpixel-boosting:client:ScratchVehicle",
             parameters = {}
         }
     },
@@ -378,7 +378,7 @@ Entries[#Entries + 1] = {
             return (not (isCloseToHood(pEntity, PlayerPedId()) or isCloseToBoot(pEntity, PlayerPedId(), 2.0, pContext.model))
               or pContext.model == GetHashKey("emsnspeedo"))
               and not IsPedInAnyVehicle(PlayerPedId(), false)
-              and NetworkGetEntityIsNetworked(pEntity) and exports['np-boosting']:pCanVin()
+              and NetworkGetEntityIsNetworked(pEntity) and exports['ethicalpixel-boosting']:pCanVin()
         end
     }
 }
