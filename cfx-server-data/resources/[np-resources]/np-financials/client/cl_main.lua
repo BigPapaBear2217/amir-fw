@@ -1,6 +1,5 @@
-RegisterNetEvent("np-ui:openATM", function()
+RegisterNetEvent("financial:openUI", function()
     local isNearATM = isNearATM()
-    local stateId = exports['isPed']:isPed('cid')
 
     if isNearATM then
         financialAnimation(isNearATM, true)
@@ -11,7 +10,7 @@ RegisterNetEvent("np-ui:openATM", function()
 
         SendNUIMessage({
             type = "open",
-            character_id = stateId,
+            character_id = RPC.execute("np-base:getCharDetails").id,
             account_id = nil,
             account_name = nil
         })
@@ -24,8 +23,6 @@ RegisterNUICallback("close", function(data, cb)
 end)
 
 RegisterNUICallback("np-ui:getCash", function(data, cb)
-    local LocalPlayer = exports["np-base"]:getModule("LocalPlayer")
-    local Player = LocalPlayer:getCurrentCharacter()
-    local cash = Player.cash
+    local cash = RPC.execute("np-financials:getCurrentCash")
     cb(cash)
 end)

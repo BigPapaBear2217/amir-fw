@@ -101,7 +101,7 @@ end)
 
 RegisterNetEvent("gang2:craft")
 AddEventHandler("gang2:craft", function()
-  TriggerEvent("server-inventory-open", "432", "Craft");
+  TriggerEvent("server-inventory-open", "432", "Craft")
 end)
 
 RegisterNetEvent("gang:storage")

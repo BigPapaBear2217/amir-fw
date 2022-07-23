@@ -140,8 +140,8 @@ end)
 local boostCompletions = 0
 local showBoostCompletions = false
 
-RegisterNetEvent('np-boosting:client:setBoostCompletions')
-AddEventHandler('np-boosting:client:setBoostCompletions', function (pAmount)
+RegisterNetEvent('ethicalpixel-boosting:client:setBoostCompletions')
+AddEventHandler('ethicalpixel-boosting:client:setBoostCompletions', function (pAmount)
     boostCompletions = pAmount
     setHudValue("boostCompletions", boostCompletions)
 end)
