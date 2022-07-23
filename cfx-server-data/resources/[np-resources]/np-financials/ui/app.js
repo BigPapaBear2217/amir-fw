@@ -44,8 +44,8 @@ $(document).ready(function () {
                         <p class="MuiTypography-root MuiTypography-body2 MuiTypography-colorTextPrimary" style="word-break: break-word; margin-right: -75%;">${pData.accounts[i].owner_first_name} ${pData.accounts[i].owner_last_name}</p>
                     </div>
                     <div id="account_balance_${pData.accounts[i].id}" style="margin: 8px 0px;margin-left: 52%;word-break: break-word;">
-                        <h5 class="MuiTypography-root MuiTypography-h5 MuiTypography-colorTextPrimary" style="text-align: right; position: relative; margin-left: -60%;">$${pData.accounts[i].balance.toLocaleString()}.00</h5>
-                        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary" style="text-align: right; margin-left: -50%; word-break: break-all;">Available Balance</p>
+                        <h5 class="MuiTypography-root MuiTypography-h5 MuiTypography-colorTextPrimary" style="text-align: right; position: relative; margin-left: -50%;">$${pData.accounts[i].balance.toLocaleString()}.00</h5>
+                        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary" style="text-align: right; margin-left: -40%; word-break: break-all;">Available Balance</p>
                     </div>
                 </div>
                 <div class="flex-row flex-space-between flex-vertical-center" style="width: 100%;">`
@@ -150,6 +150,9 @@ $(document).ready(function () {
             });
         }
 
+        let name = $(this).data("name");
+        let id = $(this).data("id");
+        $("#" + currentAccount).removeClass("jss1476");
         currentAccount = pData.accounts[0].id;
         $("#" + currentAccount).addClass("jss1476");
 
@@ -354,7 +357,7 @@ $(document).ready(function () {
 
         function depluralize_time_ago_text(time_ago_text, breakdown) {
             for (var i in breakdown) {
-                if (breaaakdown[i] == 1) {
+                if (breakdown[i] == 1) {
                     var regexp = new RegExp("\\b" + i + "\\b");
                     time_ago_text = time_ago_text.replace(regexp, function () {
                         return arguments[0].replace(/s\b/g, "");
@@ -367,30 +370,30 @@ $(document).ready(function () {
         return render_date(get_format());
     }
 
-    openMainScreen({
-        cash: 231,
-        is_atm: false,
-        accounts: [
-            {
-                id: 61942540,
-                name: "Personal Account",
-                type: "Default",
-                owner_first_name: "James",
-                owner_last_name: "Tylor",
-                account_balance: 5000,
-                access: ["deposit","withdraw","transfer","transactions","balance"],
-            },
-            {
-                id: 619425401,
-                name: "Personal Account1",
-                type: "Default",
-                owner_first_name: "James",
-                owner_last_name: "Tylor",
-                account_balance: 5000,
-                access: [],
-            }
-        ],
-    })
+    // openMainScreen({
+    //     cash: 231,
+    //     is_atm: false,
+    //     accounts: [
+    //         {
+    //             id: 61942540,
+    //             name: "Personal Account",
+    //             type: "Default",
+    //             owner_first_name: "James",
+    //             owner_last_name: "Tylor",
+    //             account_balance: 5000,
+    //             access: ["deposit","withdraw","transfer","transactions","balance"],
+    //         },
+    //         {
+    //             id: 619425401,
+    //             name: "Personal Account1",
+    //             type: "Default",
+    //             owner_first_name: "James",
+    //             owner_last_name: "Tylor",
+    //             account_balance: 5000,
+    //             access: [],
+    //         }
+    //     ],
+    // })
 
 });
 

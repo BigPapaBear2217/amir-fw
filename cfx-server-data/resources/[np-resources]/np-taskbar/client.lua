@@ -228,7 +228,7 @@ function generalPhone()
     LoadAnimationDic("cellphone@")
     TaskPlayAnim(PlayerPedId(), "cellphone@", "cellphone_text_read_base", 2.0, 3.0, -1, 49, 0, 0, 0, 0)
     TriggerEvent("attachItemPhone", "phone01")
-    -- local hasRaceUsbAndAlias = exports["srp-racing"]:getHasRaceUsbAndAlias()
+    -- local hasRaceUsbAndAlias = exports["np-racing"]:getHasRaceUsbAndAlias()
 
     -- exports["np-ui"]:openApplication("phone", {
     --   has_emergency_job = hasEmergencyJob(),

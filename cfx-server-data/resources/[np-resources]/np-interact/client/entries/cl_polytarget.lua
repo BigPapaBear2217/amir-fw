@@ -2981,14 +2981,14 @@ Entries[#Entries + 1] = {
             id = "boosting_prepscratch",
             label = "Prepare Vin Scratch",
             icon = "laptop",
-            event = "ethicalpixel-boosting:client:UseComputer",
+            event = "np-boosting:client:UseComputer",
             parameters = {}
         }
     },
     options = {
         distance = { radius = 1.0 },
         isEnabled = function(entity)
-            return exports['ethicalpixel-boosting']:pCanUseComputer()
+            return exports['np-boosting']:pCanUseComputer()
         end
     }
 }

@@ -1415,11 +1415,11 @@ AddEventHandler('RunUseItem', function(itemid, slot, inventoryName, isWeapon, pa
 
 
     if (itemid == "pixellaptop")  then
-        TriggerServerEvent("ethicalpixel-boosting:usedlaptop")
+        TriggerServerEvent("np-boosting:usedlaptop")
     end    
 
     if (itemid == "trackerdisabler")  then
-        TriggerServerEvent("ethicalpixel-boosting:useddisabler")
+        TriggerServerEvent("np-boosting:useddisabler")
     end  
 
     if (itemid == "huntingbait")  then

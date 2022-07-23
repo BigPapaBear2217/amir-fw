@@ -4,7 +4,7 @@
 
 
 
-client_script "@srp-errorlog/client/cl_errorlog.lua"
+client_script "@np-errorlog/client/cl_errorlog.lua"
 
 export "SetEnableSync"
 

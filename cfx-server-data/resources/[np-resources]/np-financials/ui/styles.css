@@ -140,7 +140,7 @@ h5 {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     line-height: 1.5;
-    letter-spacing: 0.00538em;
+    letter-spacing: 0.00938em;
 }
 
 p {
@@ -238,9 +238,6 @@ p {
 }
 
 .MuiButton-label {
-    font-size: 0.8rem;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
     color: rgba(0, 0, 0, 0.87);
     width: 100%;
     display: inherit;
@@ -498,6 +495,18 @@ button {
 .main_container_financials {
     width: 100%;
     height: 100%;
+}
+
+.MuiTouchRipple-root {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
 }
 
 .MuiButton-containedPrimary {
