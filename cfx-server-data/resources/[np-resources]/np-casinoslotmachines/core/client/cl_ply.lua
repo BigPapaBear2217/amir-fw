@@ -573,7 +573,7 @@ end)
 --#[NUI Callbacks]#--
 RegisterUICallback("np-ui-slotmachines:placeBet", function(data, cb)
   cb({ data = {}, meta = { ok = true, message = "done" } })
-  exports["np-ui"]:hideContextMenu(data)
+  exports["np-ui"]:hideContext(data)
   
   if currentSlotMachine and not isSlotMachineSpinning then
     local plyPed = PlayerPedId()
@@ -679,7 +679,7 @@ end)
 
 RegisterUICallback("np-ui-slotmachines:leaveMachine", function(data, cb)
   cb({ data = {}, meta = { ok = true, message = "done" } })
-  exports["np-ui"]:hideContextMenu(data)
+  exports["np-ui"]:hideContext(data)
   
   getUpFromSlotMachine()
 end)

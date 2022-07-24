@@ -2751,7 +2751,7 @@ end)
 RegisterUICallback("np-phone:SellRentEnable", function(data, cb)
   print('THIS IS ENABLED RENT/SALE FOR PLAYER', data[1].value,json.encode(data))
   TriggerServerEvent('np-housing:rent_activate_sv', data[1].value)
-  exports["np-ui"]:hideContextMenu()
+  exports["np-ui"]:hideContext()
   cb({ data = {}, meta = { ok = true, message = '' } })
 end)
 

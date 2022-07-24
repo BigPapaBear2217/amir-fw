@@ -613,7 +613,6 @@ end)
 
 RegisterUICallback("np-ui:purchaseChipsAction", function(data, cb)
   cb({ data = {}, meta = { ok = true, message = "done" } })
-  exports["np-ui"]:hideContextMenu(data)
   --local action = pArgs[1]
   local action = data.key
   if not hasMembership() then

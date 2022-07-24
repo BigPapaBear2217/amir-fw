@@ -1,8 +1,8 @@
--- local _wheel = nil
+local _wheel = nil
 -- local _lambo = nil
 -- local _isShowCar = false
--- local _wheelPos = vector3(1109.76, 227.89, -49.64)
--- local _baseWheelPos = vector3(1111.05, 229.81, -50.38)
+local _wheelPos = vector3(1109.76, 227.89, -49.64)
+local _baseWheelPos = vector3(1111.05, 229.81, -50.38)
 
 AddEventHandler("np-casino:wheel:toggleEnable", function()
   local characterId = exports["isPed"]:isPed("cid")
@@ -21,7 +21,7 @@ AddEventHandler("np-casino:wheel:spinWheel", function()
     return
   end
   -- local info = (exports["np-inventory"]:GetInfoForFirstItemOfName("casinoloyalty") or { information = "{}" })
-  -- RPC.execute("np-casino:wheel:spinWheel", false, json.decode(info.information).state_id)
+  RPC.execute("np-casino:wheel:spinWheel", false, json.decode(info.information).state_id)
   TriggerServerEvent("np-luckywheel:getLucky")
 end)
 
