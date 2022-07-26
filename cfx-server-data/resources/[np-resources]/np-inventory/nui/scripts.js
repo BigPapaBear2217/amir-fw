@@ -22,7 +22,7 @@ let purchase = false;
 let crafting = false;
 let clicking = false;
 let userCash = 0;
-let userWeaponLicense = false;
+let userWeaponLicense = true;
 let itemList = {};
 let exluded = {};
 let brought = false;
@@ -164,7 +164,10 @@ const isMetadataEqual = (obj1, obj2) => {
         return acc;
     }, {});
 
-    return deepEqual({...obj1, ...removedKeys }, {...obj2, ...removedKeys });
+    return deepEqual(
+        { ...obj1, ...removedKeys },
+        { ...obj2, ...removedKeys }
+    );
 }
 
 function getInvImage(item, info) {
@@ -173,7 +176,7 @@ function getInvImage(item, info) {
         if (customImageItems.includes(item._name) && !!info) {
             imgSrc = info._image_url || JSON.parse(info)._image_url;
         }
-    } catch (err) {}
+    } catch (err) { }
     return imgSrc;
 }
 
@@ -192,33 +195,59 @@ function fallbackCopyTextToClipboard(text) {
 
     try {
         document.execCommand('copy');
-    } catch (err) {}
+    } catch (err) { }
 
     document.body.removeChild(textArea);
 }
 
-exluded['2578778090'] = true; // knife
-exluded['1737195953'] = true; // nightstick
-exluded['1317494643'] = true; // hammer
-exluded['2508868239'] = true; // this doesnt spawn
-exluded['1141786504'] = true; // golf club
-exluded['2227010557'] = true; // crowbar
-exluded['883325847'] = true; // petrol can
-exluded['4192643659'] = true; // this doesnt spawn
-exluded['2460120199'] = true; // dagger
-exluded['3638508604'] = true; // knuckle
-exluded['4191993645'] = true; // hatchet
-exluded['3713923289'] = true; // machete
-exluded['2343591895'] = true; // flashlight
-exluded['2484171525'] = true; // this doesnt spawn
-exluded['419712736'] = true; // pipe wrench
-exluded['-1810795771'] = true; // this doesnt spawn
-exluded['-1024456158'] = true; // bat
-exluded['453432689'] = true; // colt 1911
-exluded['1593441988'] = true; // fn fnx-45
-exluded['-1075685676'] = true; // beretta m9
+exluded['2578778090'] = true;
+exluded['1737195953'] = true;
+exluded['1317494643'] = true;
+exluded['2508868239'] = true;
+exluded['1141786504'] = true;
+exluded['2227010557'] = true;
+exluded['883325847'] = true;
+exluded['4192643659'] = true;
+exluded['2460120199'] = true;
+exluded['3638508604'] = true;
+exluded['4191993645'] = true;
+exluded['3713923289'] = true;
+exluded['2343591895'] = true;
+exluded['2484171525'] = true;
+exluded['419712736'] = true;
+exluded['-1810795771'] = true;
+exluded['-120179019'] = true;
+exluded['1834241177'] = true;
+exluded['218362403'] = true;
+exluded['148457251'] = true;
+exluded['-2012211169'] = true;
+exluded['-1746263880'] = true;
+exluded['453432689'] = true;
+exluded['-1075685676'] = true;
+exluded['1593441988'] = true;
+exluded['-134995899'] = true;
+exluded['-1716589765'] = true;
+exluded['584646201'] = true;
+exluded['-942620673'] = true;
+exluded['736523883'] = true;
+exluded['1192676223'] = true;
+exluded['-176814556'] = true;
+exluded['-1719357158'] = true;
+exluded['100416529'] = true;
+exluded['-1536150836'] = true;
+exluded['-90637530'] = true;
+exluded['-1074790547'] = true;
+exluded['497969164'] = true;
+exluded['-275439685'] = true;
+exluded['487013001'] = true;
+exluded['1432025498'] = true;
+exluded['171789620'] = true;
+exluded['1649403952 '] = true;
+exluded['-1472189665'] = true;
+exluded['-820634585'] = true;
+exluded['-2009644972'] = true;
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.save-settings').click(() => {
         holdToDrag = $('input[name="enableHoldToDrag"]').prop('checked');
         closeOnClick = $('input[name="enableClickToClose"]').prop('checked');
@@ -247,7 +276,7 @@ $(document).ready(function() {
                 if (_lastInfo) {
                     fallbackCopyTextToClipboard(_lastInfo);
                 }
-            } catch (err) {}
+            } catch (err) { }
         }
 
         //TODO: Get the +generalInventory key?
@@ -387,7 +416,7 @@ $(document).ready(function() {
         }
     });
 
-    window.addEventListener('message', function(event) {
+    window.addEventListener('message', function (event) {
         let item = event.data;
         // Trigger adding a new message to the log and create its display
         if (item.response == 'openGui') {
@@ -425,7 +454,7 @@ $(document).ready(function() {
             UpdateSetWeights(item.invName);
         } else if (item.response == 'cashUpdate') {
             userCash = item.amount;
-            userWeaponLicense = item.weaponlicence;
+            userWeaponLicense = true
             brought = item.brought;
             isCop = item.cop;
         } else if (item.response == 'DisableMouse') {
@@ -572,7 +601,7 @@ function UpdateQuality(data, penis) {
         if (meta.indexOf('{}') === 0) {
             meta = meta.substring(2).trim();
         }
-    } catch (e) {}
+    } catch (e) { }
 
     let htmlstring =
         '<div ' +
@@ -584,7 +613,8 @@ function UpdateQuality(data, penis) {
         "px;'></div> <div class='itemname'> " +
         name +
         " </div> <div class='information'>  " +
-        "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span> </div>" +
+        "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span> </div>"
+        +
         `<img src='${image}` +
         "' data-info='" +
         escape(info) +
@@ -729,7 +759,7 @@ function ToggleBar(toggle, boundItems, boundItemsAmmo) {
     }
 }
 
-document.onkeyup = function(data) {
+document.onkeyup = function (data) {
     if (data.key == 'Escape') {
         closeInv();
     }
@@ -877,7 +907,7 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
 
 
     let displayName = 'Storage';
-    console.log(targetinvName)
+
     if (targetinvName.indexOf('Drop') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 30;
@@ -887,31 +917,10 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         slotLimitTarget = 2;
         PlayerStore = true;
         displayName = 'Player Store';
-    } else if (targetinvName.indexOf('sosa') > -1) {
-        secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
-        displayName = 'Sosa Storage';
-    } else if (targetinvName.indexOf('Gang') > -1) {
-        secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
-        displayName = 'Mandem Storage';
-    } else if (targetinvName.indexOf('gambinos') > -1) {
-        secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
-        displayName = 'Gambinos Storage';
-    } else if (targetinvName.indexOf('saigons') > -1) {
-        secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
-        displayName = 'Saigons Storage';
-    } else if (targetinvName.indexOf('black_mafia') > -1) {
-        secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
-        displayName = 'Black Mafia Storage';
-    } else if (targetinvName.indexOf('hoa') > -1) {
-        secondaryMaxWeight = 2000.0;
-        slotLimitTarget = 200;
-        displayName = 'HOA Storage';
     } else if (targetinvName.indexOf('storage') > -1) {
+        secondaryMaxWeight = 2000.0;
+        slotLimitTarget = 200;
+    } else if (targetinvName.indexOf('bahamamammas-stash') > -1) {
         secondaryMaxWeight = 2000.0;
         slotLimitTarget = 200;
     } else if (targetinvName.indexOf('office') > -1) {
@@ -923,8 +932,11 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
     } else if (targetinvName.indexOf('warehouse') > -1) {
         secondaryMaxWeight = 6500.0;
         slotLimitTarget = 1000;
+    } else if (targetinvName.indexOf('skybar-tray') > -1) {
+        secondaryMaxWeight = 100.0;
+        slotLimitTarget = 5;
     } else if (targetinvName.indexOf('motel-1') > -1) {
-        secondaryMaxWeight = 300.0;
+        secondaryMaxWeight = 500.0;
         slotLimitTarget = 30;
     } else if (targetinvName.indexOf('motel-2') > -1) {
         secondaryMaxWeight = 600.0;
@@ -936,6 +948,7 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         secondaryMaxWeight = 50.0;
         slotLimitTarget = 5;
         displayName = 'Glovebox';
+        $("#secondaryInv").css({ height: "18%" });
     } else if (targetinvName.indexOf('Trunk') > -1) {
         secondaryMaxWeight = 650.0;
         slotLimitTarget = 65;
@@ -973,7 +986,7 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
     } else if (targetinvName.indexOf('Stolen-Goods') > -1) {
         secondaryMaxWeight = 1000.0;
         slotLimitTarget = 5;
-    } else if (targetinvName.indexOf('bizlarge') === 0) {
+    } else if (targetinvName.indexOf('bizLarge') === 0) {
         secondaryMaxWeight = 5000.0;
         slotLimitTarget = 800;
     } else if (targetinvName.indexOf('biz') === 0) {
@@ -988,13 +1001,22 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         slotLimitTarget = 40;
         displayName = 'Other Player';
     } else if (targetinvName.indexOf('rifle-rack') > -1) {
-        secondaryMaxWeight = 250.0;
+        secondaryMaxWeight = 100.0;
         slotLimitTarget = 10;
-        displayName = 'Locked Compartment';
+        displayName = 'Rifle Rack';
+    } else if (targetinvName.indexOf('burgerjob_warmer') > -1) {
+        secondaryMaxWeight = 300.0;
+        slotLimitTarget = 20;
+        displayName = 'Food Warmer';
+    } else if (targetinvName.indexOf('CASE ID: ') > -1) {
+        secondaryMaxWeight = 10000.0;
+        slotLimitTarget = 150;
+        displayName = 'Evidence of  ' + targetinvName.substring(targetinvName.indexOf('Case-ID:'));
     } else if (targetinvName.indexOf('fisher-bucket-') > -1) {
         secondaryMaxWeight = 99.0;
         slotLimitTarget = 10;
         displayName = 'Fisher Bucket';
+        $("#secondaryInv").css({ height: "32%" });
     } else if (targetinvName.indexOf('burgerjob_shelf') > -1 || targetinvName.startsWith('restaurants_shelf')) {
         secondaryMaxWeight = 300.0;
         slotLimitTarget = 40;
@@ -1019,8 +1041,8 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
             secondaryMaxWeight = parseInt(splitName[2]);
         }
     } else if (targetinvName.indexOf('burgerjob_fridge') > -1) {
-        secondaryMaxWeight = 1000.0;
-        slotLimitTarget = 40;
+        secondaryMaxWeight = 400.0;
+        slotLimitTarget = 20;
         displayName = 'Ingredient Storage';
     } else if (targetinvName.indexOf('gallery_gemtrade') > -1) {
         secondaryMaxWeight = 10.0;
@@ -1108,6 +1130,22 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         secondaryMaxWeight = 100.0;
         slotLimitTarget = 10;
         displayName = 'Bodybag';
+    } else if (targetinvName.startsWith('red-circle-stash')) {
+        secondaryMaxWeight = 5000.0;
+        slotLimitTarget = 100;
+        displayName = 'Red Circle Stash';
+    } else if (targetinvName.startsWith('hydra-incorporation')) {
+        secondaryMaxWeight = 5000.0;
+        slotLimitTarget = 100;
+        displayName = 'Hydra Incorporation Stash';
+    } else if (targetinvName.startsWith('cosmic_cannabis')) {
+        secondaryMaxWeight = 5000.0;
+        slotLimitTarget = 100;
+        displayName = 'Hydra Incorporation Stash';
+    } else if (targetinvName.startsWith('burgerjob_counter')) {
+        secondaryMaxWeight = 200.0;
+        slotLimitTarget = 5;
+        displayName = 'Tray';
     } else if (targetinvName.startsWith('mailbox')) {
         secondaryMaxWeight = 300.0;
         slotLimitTarget = 30;
@@ -1116,6 +1154,22 @@ function DisplayInventoryMultiple(playerinventory, itemCount, invName, targetinv
         secondaryMaxWeight = 110.0;
         slotLimitTarget = 5;
         displayName = 'Mailbox';
+    } else if (targetinvName.startsWith('murdermeal')) {
+        secondaryMaxWeight = 15.0;
+        slotLimitTarget = 5;
+        displayName = 'Murder Meal';
+    } else if (targetinvName.startsWith('duffelbag')) {
+        secondaryMaxWeight = 75.0;
+        slotLimitTarget = 10;
+        displayName = 'Duffel Bag';
+    } else if (targetinvName.startsWith('Vanilla-Bar-Table')) {
+        secondaryMaxWeight = 100;
+        slotLimitTarget = 5;
+        displayName = 'Table';
+    } else if (targetinvName.startsWith('bentobox')) {
+        secondaryMaxWeight = 15.0;
+        slotLimitTarget = 5;
+        displayName = 'Bento Box';
     } else {
         secondaryMaxWeight = 250.0;
         slotLimitTarget = 40;
@@ -1140,7 +1194,7 @@ function BuildDrop(brokenSlots) {
 
 // THIS IS A SHIT COPY PASTE JUST TIO UPDATE BECAUSE I COULDNT BE BOTHERED ADDING A VARIABLE TO LIKE 2 EVENTS :)
 
-// NOVEL BTW
+// NOPIXEL BTW
 
 function produceInfo(data) {
     let string = '';
@@ -1226,7 +1280,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
     }
 
     for (i = 0; i < slotLimit + 1; i++) {
-        if (isEmpty(inventory[i])) {} else {
+        if (isEmpty(inventory[i])) {
+        } else {
             let slot = inventory[i].slot;
 
             let itemid = '' + inventory[i].itemid + '';
@@ -1236,7 +1291,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                 inventoryName = inventory[slot].inventoryName;
 
                 let weight = parseFloat(itemList[itemid].weight);
-                let item_cost = itemList[itemid].priceWithTax;
+                let item_cost = itemList[itemid].price;
 
                 let stackable = !itemList[itemid].nonStack;
                 let image = getInvImage(itemList[itemid], inventory[i].information);
@@ -1256,7 +1311,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     if (obj.hideInfo) {
                         meta = '';
                     }
-                } catch (err) {}
+                } catch (err) { }
 
                 let keysToFilter = [];
                 try {
@@ -1267,7 +1322,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     if (obj._hideAllKeys) {
                         keysToFilter = Object.keys(obj);
                     }
-                } catch (err) {}
+                } catch (err) { }
 
                 try {
                     const obj = JSON.parse(meta);
@@ -1339,7 +1394,7 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     if (meta.indexOf('{}') === 0) {
                         meta = meta.substring(2).trim();
                     }
-                } catch (e) {}
+                } catch (e) { }
                 let htmlstring =
                     '<div ' +
                     itemMaxed +
@@ -1350,8 +1405,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                     "%;'></div> <div class='itemname'> " +
                     name +
                     " </div> <div class='information'>  " +
-                    "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span></div>" +
-                    `<img src='${image}` +
+                    "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span></div>"
+                    + `<img src='${image}` +
                     "' data-inventory='" +
                     inventoryNumber +
                     "' data-quality='" +
@@ -1398,8 +1453,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "<div class='itemname itemnameShop'> " +
                         name +
                         " </div> <div class='information shopInformation'>  " +
-                        "<span class='item-qty'>" + (!stackable ? '1' : '') + " </span> <span class='item-weight'>" + weight.toFixed(2) + "</span> </div>" +
-                        `</div> <img src='${image}` +
+                        "<span class='item-qty'>" + (!stackable ? '1' : '') + " </span> <span class='item-weight'>" + weight.toFixed(2) + "</span> </div>"
+                        + `</div> <img src='${image}` +
                         "' data-inventory='" +
                         inventoryNumber +
                         "' data-creationDate='" +
@@ -1521,8 +1576,8 @@ function DisplayInventory(sqlInventory, itemCount, invName, main) {
                         "'><div class='itemname'> " +
                         name +
                         " </div> <div class='information'> " +
-                        "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span>" +
-                        `</div> <img src='${image}` +
+                        "<span class='item-qty'>" + itemcount + "x</span> <span class='item-weight'>" + weight.toFixed(2) + "</span>"
+                        + `</div> <img src='${image}` +
                         "' data-inventory='" +
                         inventoryNumber +
                         "' data-creationDate='" +
@@ -1875,7 +1930,7 @@ function searchUpdate() {
     let searchInput = $('#search-text').val();
     $('.wrapmain')
         .find("div[class*='itemname']")
-        .each(function(i, el) {
+        .each(function (i, el) {
             let parent = el.parentElement.id;
 
             document.getElementById(parent).style.backgroundColor = 'rgba(40,20,40,0.1)';
@@ -1892,7 +1947,7 @@ function searchUpdate() {
     searchInput = document.getElementById('search-text').value;
     $('.wrapsecondary')
         .find("div[class*='itemname']")
-        .each(function(i, el) {
+        .each(function (i, el) {
             let parent = el.parentElement.id;
             $('#' + parent).css('background-color', 'rgba(40,20,40,0.1)');
             curGPSLength = searchInput.length;
@@ -2435,7 +2490,7 @@ function AttemptDropInFilledSlot(slot) {
     }
 
     if ((TargetInventoryName.startsWith("container") || TargetInventoryName.startsWith("fisher-bucket")) && (
-            (inventoryReturnItemDropName == 'wrapmain' && inventoryDropName == 'wrapsecondary')) ||
+        (inventoryReturnItemDropName == 'wrapmain' && inventoryDropName == 'wrapsecondary')) ||
         (inventoryDropName == 'wrapmain' && inventoryReturnItemDropName == 'wrapsecondary')) {
         let sqlInventory = JSON.parse(MyInventory);
         let hasInventoryKey = false;
@@ -2530,7 +2585,7 @@ function AttemptDropInFilledSlot(slot) {
                     return;
                 } else {
                     if (itemList[itemidsent].weapon && inventoryReturnItemDropName !== inventoryDropName) {
-                        if (!exluded[itemidsent] && !userWeaponLicense && !isCop) {
+                        if (!exluded[itemidsent] && !userWeaponLicense) {
                             result = 'You do not have a license.!';
                             result2 = 'You do not have a license.!';
                             InventoryLog('Error: ' + result);
@@ -2620,10 +2675,11 @@ function AttemptDropInFilledSlot(slot) {
                 InventoryLog('Error: ' + result2 + ' | ' + result);
             } else if (
                 (
-                    (itemList[itemid1].insertTo && itemList[itemid1].insertTo.includes(itemid2)) ||
+                    (itemList[itemid1].insertTo && itemList[itemid1].insertTo.includes(itemid2))
+                    ||
                     (itemList[itemid2].insertFrom && itemList[itemid2].insertFrom.includes(itemid1))
-                ) &&
-                inventoryDropName === 'wrapmain' && inventoryDropName === inventoryReturnItemDropName
+                )
+                && inventoryDropName === 'wrapmain' && inventoryDropName === inventoryReturnItemDropName
             ) {
                 InsertItem(
                     parseInt(slot.replace(/\D/g, '')),
@@ -2732,7 +2788,7 @@ function DisplayInformation(slot) {
         } else {
             name = `${customNameItemsDescriptions[item.dataset.itemid] || ''}${name}`;
         }
-    } catch (err) {}
+    } catch (err) { }
 
     _lastInfo = metainformation;
 
@@ -2971,7 +3027,7 @@ function AttemptDropInEmptySlot(slot, isDropped, half) {
                 return;
             } else {
                 if (itemList[itemidsent].weapon && inventoryReturnItemDropName !== inventoryDropName) {
-                    if (!exluded[itemidsent] && !userWeaponLicense && !isCop) {
+                    if (!exluded[itemidsent] && !userWeaponLicense) {
                         result = 'You do not have a license!';
                         InventoryLog('Error: ' + result);
                         EndDragError(slot);
@@ -3169,7 +3225,7 @@ function useitem() {
     if (currentInventory == 1) {
         inventoryUsedName = PlayerInventoryName;
         let arr = [inventoryUsedName, itemid, slotusing, isWeapon, itemusinginfo];
-        $.post('https://np-inventory/invuse', JSON.stringify(arr));
+        $.post('https://arp-inventory/invuse', JSON.stringify(arr));
         //InventoryLog("Using item: " + name + "(" + amount + ") from " + inventoryUsedName + " | slot " + slotusing)
     }
     EndDrag(slotusing);
@@ -3200,7 +3256,6 @@ function calculateTimeDiff(time) {
 
 //https://stackoverflow.com/questions/16994662/count-animation-from-number-a-to-b
 var timer = {}
-
 function animateValue(id, start, end, duration) {
     if (timer[id]) {
         clearInterval(timer[id])
@@ -3226,7 +3281,7 @@ function animateValue(id, start, end, duration) {
 
 //https://stackoverflow.com/questions/4399005/implementing-jquerys-shake-effect-with-animate
 //Not adding jQuery UI :)
-jQuery.fn.shake = function(interval, distance, times) {
+jQuery.fn.shake = function (interval, distance, times) {
     interval = typeof interval == 'undefined' ? 100 : interval;
     distance = typeof distance == 'undefined' ? 10 : distance;
     times = typeof times == 'undefined' ? 3 : times;
