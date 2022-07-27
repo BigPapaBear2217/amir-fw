@@ -30,7 +30,12 @@ Citizen.CreateThread(function()
     while true do
         player = GetPlayerPed(-1)
         veh = GetVehiclePedIsIn(player, false)
-
+        if veh ~= 0 then
+            local temp_veh_fuel = GetVehicleFuelLevel(veh)
+            if temp_veh_fuel > 0 then
+                vehicle_fuel = temp_veh_fuel
+            end
+        end
         Citizen.Wait(2000)
     end
 end)
@@ -38,7 +43,7 @@ end)
 function EnableGUI(enable)
     enabled = enable
 
-    SetCustomNuiFocus(enable, enable)
+    SetNuiFocus(enable, enable)
 
     SendNUIMessage({
         type = "enablecarmenu",
@@ -144,7 +149,13 @@ RegisterNUICallback('openDoor', function(data, cb)
 end)
 
 RegisterNUICallback('switchSeat', function(data, cb)
-    TriggerEvent('vehicle:swapSeat', tonumber(data['seatIndex']))
+    seatIndex = tonumber(data['seatIndex'])
+    player = GetPlayerPed(-1)
+    veh = GetVehiclePedIsIn(player, false)
+    if veh ~= 0 then
+        -- May need to check if another player is in seat?
+        SetPedIntoVehicle(player, veh, seatIndex)
+    end
     cb('ok')
 end)
 
@@ -166,16 +177,20 @@ RegisterNUICallback('togglewindow', function(data, cb)
 end)
 
 RegisterNUICallback('toggleengine', function(data, cb)
-    player = PlayerPedId()
+    player = GetPlayerPed(-1)
     veh = GetVehiclePedIsIn(player, false)
-    local seatIn = GetPedInVehicleSeat(player, -1)
     if veh ~= 0 then
-        if IsVehicleEngineOn(veh) then
-            SetVehicleEngineOn(veh, false, false, true)
-            SetVehicleUndriveable(veh, true)
+        local engine = not GetIsVehicleEngineRunning(veh)
+
+        if not IsPedInAnyHeli(player) then
+            SetVehicleEngineOn(veh, engine, false, true)
+            SetVehicleJetEngineOn(veh, engine)
         else
-            SetVehicleEngineOn(veh, true, false, true)
-            SetVehicleUndriveable(veh, false)
+            if engine then
+                SetVehicleFuelLevel(veh, vehicle_fuel)
+            else
+                SetVehicleFuelLevel(veh, 0)
+            end
         end
     end
     cb('ok')
@@ -186,12 +201,7 @@ end)
     cb('ok')
 end)
 
-
-function SetCustomNuiFocus(hasKeyboard, hasMouse)
---   HasNuiFocus = hasKeyboard or hasMouse
-
-  SetNuiFocus(hasKeyboard, hasMouse)
---   SetNuiFocusKeepInput(HasNuiFocus)
-
---   TriggerEvent("np-voice:focus:set", HasNuiFocus, hasKeyboard, hasMouse)
+local disableShuffle = true
+function disableSeatShuffle(flag)
+	disableShuffle = flag
 end
