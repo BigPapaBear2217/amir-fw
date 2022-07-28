@@ -4,6 +4,8 @@ local dumpsterItems = {
     [3] = {chance = 5, id = 'plastic', quantity = math.random(1,3)},
     [4] = {chance = 4, id = 'chemicals', quantity = math.random(1,3)},
     [5] = {chance = 3, id = 'methlabbaggy', quantity = math.random(1,3)},
+    [6] = {chance = 3, id = 'mobilephone', quantity = math.random(1,3)},
+
 
 }
 
